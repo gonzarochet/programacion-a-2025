@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1739316431 source:c:\dev\utn\programacion-nivelatorio-2025\11-02-2025-primer-programa\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+
