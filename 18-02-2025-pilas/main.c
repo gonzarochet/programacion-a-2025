@@ -5,50 +5,54 @@
 int main()
 {
 
-    /*
-
-    Pila pilita, aux1, aux2;
-    inicpila(&pilita);
-    inicpila(&aux1);
-    inicpila(&aux2);
-
-    apilar(&pilita,9);
-    apilar(&pilita,6);
-    apilar(&pilita,2);
-    apilar(&pilita,10);
-    apilar(&pilita,5);
-
-    int top = tope(&pilita);
-
-    printf("El tope de la pilita es %d", top);
-
-    mostrar(&pilita);
+    int option;
 
 
-    apilar(&aux1, desapilar(&pilita));
-    apilar(&aux1, desapilar(&pilita));
-    apilar(&aux1, desapilar(&pilita));
+    do
+    {
+        printf("Elija el ejercicio a trabajar: \n");
+        printf("0. Presione 0 (cero) para salir \n");
+        printf("1. Ejercicio 1:  \n");
+        printf("2. Ejercicio 2:  \n");
+        printf("3. Ejercicio 3:  \n");
 
-    apilar(&aux2, desapilar(&pilita));
-    apilar(&aux2, desapilar(&pilita));
+        scanf("%d", &option);
 
-    printf("\n PILITA: \n");
-    mostrar(&pilita);
+        switch(option)
+        {
 
-    printf("\n AUX 1: \n");
-    mostrar(&aux1);
+        case 0:
+            printf("Gracias por usar nuestro sistema\n");
+            option = 0;
+            break;
 
-    printf("\n AUX 2: \n");
-    mostrar(&aux2);
+        case 1:
+            ejercicio1();
+            break;
+
+        case 2:
+            ejercicio2();
+            break;
+
+        case 3:
+            break;
+
+        default:
+            printf("La tecla ingresada no corresponde con ninguna opción \n");
+            break;
+        }
+
+        system("pause");
+        system("cls");
 
 
 
-    //mostrar(&pilita);
+    }
+    while(option != 0);
 
-    */
 
-    //menuOpciones();
-    //ejercicio1();
+
+
 
 
     return 0;
@@ -56,7 +60,8 @@ int main()
 
 
 
-void menuOpciones(){
+void menuOpciones()
+{
 
     printf("<<<Ingrese el numero del ejercicio>>>\n\n");
     printf("1. Cargar desde el teclado una pila DADA con 5 elementos. Pasar los tres primeros elementos a la pila AUX1 y los dos restantes a la pila AUX2. \n\n");
@@ -78,7 +83,8 @@ void menuOpciones(){
 }
 
 
-void ejercicio1(){
+void ejercicio1()
+{
 
     Pila pilita, aux1, aux2;
     inicpila(&pilita);
@@ -114,6 +120,45 @@ void ejercicio1(){
     printf("\n AUX 2: \n");
     mostrar(&aux2);
 
+
+}
+
+
+/*
+2. Cargar desde el teclado la pila ORIGEN e inicializar en vacío la pila DESTINO.
+Pasar todos los elementos de la pila ORIGEN a la pila DESTINO.
+*/
+void ejercicio2()
+{
+    Pila origen, destino;
+
+    inicpila(&origen);
+    inicpila(&destino);
+
+    char option = 's';
+
+    do{
+
+        leer(&origen);
+        printf("Desea continuar? s/n \n");
+        fflush(stdin);
+        scanf("%c", &option);
+
+    }while(option == 's');
+
+
+    printf("ORIGEN ANTES \n");
+    mostrar(&origen);
+
+    while(!pilavacia(&origen)){
+        apilar(&destino,desapilar(&origen));
+    }
+
+    printf("ORIGEN DESPUES \n");
+    mostrar(&origen);
+
+    printf("DESTINO FIN \n");
+    mostrar(&destino);
 
 }
 
