@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1739921647 source:c:\dev\utn\programacion-nivelatorio-2025\17-03-2025-funcionepilas\pila.c
+	"pila.h"
+
+1739921378 c:\dev\utn\programacion-nivelatorio-2025\17-03-2025-funcionepilas\pila.h
+	<stdio.h>
+	<malloc.h>
+
