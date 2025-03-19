@@ -17,8 +17,8 @@ int main()
     cargarPilaPorUsuario(&pilita);
     mostrar(&pilita);
 
-   // pasaDatosPilas(&pilita,&dada);
-    copiaPila(pilita,&dada);
+   pasaDatosPilas(&pilita,&dada);
+    //copiaPila(pilita,&dada);
 
     mostrar(&dada);
 
