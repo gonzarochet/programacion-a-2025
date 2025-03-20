@@ -6,3 +6,9 @@
 	<stdio.h>
 	<malloc.h>
 
+1742512243 source:c:\dev\utn\programacion-nivelatorio-2025\17-03-2025-funcionepilas\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"pila.h"
+
