@@ -47,6 +47,8 @@ int main()
     */
 
 
+    /*
+
     int A = 5;
     int B = 2;
 
@@ -56,7 +58,9 @@ int main()
 
     printf("La variable A despues %d y la variable B despues %d \n" ,A, B);
 
+    */
 
+    muestraMayorMenor(10,8,9);
 
     return 0;
 }
@@ -87,4 +91,70 @@ void intercambio (int * n1, int * n2){
     *n2 = aux;
 
    // printf("\n\nDespues - N1: %d - N2 %d \n\n", n1, n2);
+}
+
+
+
+
+void muestraMayorMenor(int nro1, int nro2, int nro3)
+{
+
+    int mayor;
+
+    int menor;
+
+    if(nro1 > nro2 && nro1 > nro3)
+    {
+        mayor = nro1;
+
+        if(nro2 < nro3)
+
+        {
+            menor = nro2;
+
+        }
+        else
+        {
+            menor = nro3;
+        }
+
+    }
+    else if ( nro2 > nro1 && nro2 > nro3)
+    {
+
+        mayor = nro2;
+
+        if(nro1 < nro3)
+        {
+            menor = nro1;
+        }
+        else
+        {
+            menor  = nro3;
+        }
+
+
+    }
+    else
+    {
+        mayor = nro3;
+
+
+        if(nro1 < nro2)
+        {
+            menor = nro1;
+        }
+        else
+        {
+            menor  = nro2;
+        }
+
+
+    }
+
+
+    printf("\nEl numero mayor es %d\n", mayor);
+    printf("El numero menor es %d\n", menor);
+
+
 }
