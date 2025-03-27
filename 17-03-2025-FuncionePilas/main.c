@@ -14,6 +14,12 @@ void pasaPila(Pila * origen, Pila * destino);
 void pasaDatosPilaOrden(Pila * origen, Pila * destino);
 int buscaEliminaMenorPila(Pila * origen);
 void ordenacionXSeleccion(Pila * dada, Pila * destino);
+void insertarElementoEnOrden(Pila * dada, int dato);
+void ordenacionXInsercion(Pila * origen, Pila * destino);
+
+float dividir (int num1, int num2 );
+float promedioElementosPila(Pila dada);
+
 
 int main()
 {
@@ -84,7 +90,23 @@ void menu()
             mostrar(&destino);
             break;
 
+        case 6:
+            printf("6. Inserta elemento en Pila ordenada \n");
+            insertarElementoEnOrden(&destino, 99);
+            mostrar(&destino);
+            break;
 
+        case 7:
+            printf("7. Ordenacion por insercion \n");
+            ordenacionXInsercion(&dada, &destino);
+            mostrar(&destino);
+            break;
+
+
+        case 9:
+            printf("9. Promedio elementos pila ");
+            float rta = promedioElementosPila(dada);
+            printf("El promedio de la pila dada es %.2f \n",rta);
         }
 
         system("pause");
@@ -93,11 +115,8 @@ void menu()
         printf("Quiere continuar? ESC para salir \n");
         option = getch();
 
-
     }
     while (option != ESC);
-
-
 }
 
 
@@ -159,6 +178,9 @@ void menuOpciones()
     printf("3. Pasar los datos de una pila a otra, en el mismo orden \n ");
     printf("4. Busca menor en Pila, lo elimina y lo retorna \n");
     printf("5. Ordenación por Selección  \n");
+    printf("6. Inserta en una pila ordenada un nuevo elemento, conservando el orden de ésta. \n");
+    printf("7. Ordenación por Inserción  \n");
+    printf("9. Promedio pila dada  \n");
 }
 
 
@@ -250,14 +272,115 @@ int buscaEliminaMenorPila(Pila * origen)
 }
 
 
-void ordenacionXSeleccion(Pila * dada, Pila * destino){
+void ordenacionXSeleccion(Pila * dada, Pila * destino)
+{
 
     int menor;
 
-    while(!pilavacia(dada)){
+    while(!pilavacia(dada))
+    {
         menor = buscaEliminaMenorPila(dada);
         apilar(destino, menor);
     }
+
+}
+
+
+void insertarElementoEnOrden(Pila * dada, int dato)
+{
+
+    Pila aux;
+    inicpila(&aux);
+
+    while(!pilavacia(dada) && tope(dada) < dato)
+    {
+        apilar(&aux, desapilar(dada));
+    }
+
+    apilar(dada, dato);
+    pasaPila(&aux, dada);
+
+}
+
+
+void ordenacionXInsercion(Pila * origen, Pila * destino)
+{
+
+    while(!pilavacia(origen))
+    {
+        insertarElementoEnOrden(destino, desapilar(origen));
+    }
+}
+
+
+/// 9.
+
+int sumaElementosPila(Pila dada)
+{
+
+    int acum = 0;
+
+    while(!pilavacia(&dada))
+    {
+        acum = acum + desapilar(&dada); /// acum+=desapilar(&dada)
+    }
+
+    return acum;
+}
+
+/// con condicion
+int sumaElementosPilaCondicion(Pila dada, int condicion)
+{
+    Pila aux;
+    inicpila(&aux);
+    int acum = 0;
+
+    while(!pilavacia(&dada))
+    {
+        if(tope(&dada) >= condicion)
+        {
+            acum = acum + tope(&dada);
+        }
+
+        apilar(&aux, desapilar(&dada));
+    }
+
+    return acum;
+}
+
+int cantidadElementosPila(Pila dada)
+{
+
+    Pila aux;
+    inicpila(&aux);
+
+    int cant = 0;
+
+    while(!pilavacia(&dada))
+    {
+        cant = cant + 1; /// cant++; cant +=1;
+        apilar(&aux,desapilar(&dada));
+    }
+
+    return cant;
+
+}
+
+float dividir (int num1, int num2 )
+{
+    return (float) num1 / num2;
+}
+
+float promedioElementosPila(Pila dada)
+{
+
+    float resultado = 0.0;
+    int sumaElementos = sumaElementosPila(dada);
+    int cantElementos = cantidadElementosPila(dada);
+
+    resultado = dividir(sumaElementos,cantElementos);
+
+    return resultado;
 
 }
 
