@@ -3,6 +3,7 @@
 #include <conio.h>
 #include <math.h>
 #include <time.h>
+#include "pila.h"
 
 
 
@@ -18,12 +19,12 @@ int main()
     int arreglo[10];
     int validos = 0;
 
-   // validos = cargaElementosArreglo(arreglo,validos, 10);
+    // validos = cargaElementosArreglo(arreglo,validos, 10);
     printf("\n");
-    muestraArreglo(arreglo,validos);
+    // muestraArreglo(arreglo,validos);
 
 
-    int arreglito[50];
+    int arreglito[5];
     int vArreglito = 0;
 
     cargaDiezElementosRandomArreglo(arreglito, &vArreglito);
@@ -35,11 +36,13 @@ int main()
 }
 
 
-int cargaElementosArreglo(int arreglo[], int v, int dim){
+int cargaElementosArreglo(int arreglo[], int v, int dim)
+{
 
     char option = 's';
 
-    while(v < dim && option != 27){
+    while(v < dim && option != 27)
+    {
 
         printf("Ingrese un valor al arreglo, a la posicion a[%d]: \n", v);
         scanf("%d", &arreglo[v]);
@@ -54,12 +57,14 @@ int cargaElementosArreglo(int arreglo[], int v, int dim){
 }
 
 
-
-void cargaDiezElementosRandomArreglo(int arreglo[], int * v){
+/// 1.
+void cargaDiezElementosRandomArreglo(int arreglo[], int * v)
+{
 
     int val = *v;
 
-    for(int i = 0; i < 10; i++){
+    for(int i = 0; i < 10; i++)
+    {
         arreglo[val] = rand()% 10 + 1;
         val++;
     }
@@ -68,11 +73,131 @@ void cargaDiezElementosRandomArreglo(int arreglo[], int * v){
 
 }
 
-void muestraArreglo(int arreglo[], int v){
+/// 2.
+void muestraArreglo(int arreglo[], int v)
+{
 
-    for(int i = 0; i<v; i++){
+    for(int i = 0; i<v; i++)
+    {
         printf("%d |", arreglo[i]);
     }
 
 }
+
+///4. copia elementos del arreglo a la pila.
+void copiaElementosArregloToPila(int A[], int v, Pila * dada)
+{
+
+    for(int i = 0; i < v; i++)
+    {
+        apilar(dada, A[i]);
+    }
+
+}
+
+
+int copiaElementosPilaToArregloVacio(Pila dada, int A[], int dim)
+{
+    int v = 0;
+
+    while(!pilavacia(&dada) && v < dim)
+    {
+        A[v] = desapilar(&dada);
+        v++;
+    }
+
+    return v;
+}
+
+
+
+int copiaElementosPilaToArreglo(Pila dada, int A[], int v, int dim)
+{
+
+    int cantEspacioLibresArreglo = dim - v;
+    int cantElemPila = cantidadElementosPila(dada);
+
+    if(cantEspacioLibresArreglo >= cantElemPila)
+    {
+
+        while(!pilavacia(&dada))
+        {
+            A[v] = desapilar(&dada);;
+            v++;
+        }
+
+    }
+
+    return v;
+
+}
+
+
+int copiaElementosPilaToArregloCondicion(Pila dada, int A[], int v, int dim, int cond)
+{
+
+    int cantEspacioLibresArreglo = dim - v;
+    int cantElemPila = cantidadElementosPila(dada);
+
+    if(cantEspacioLibresArreglo >= cantElemPila)
+    {
+
+        while(!pilavacia(&dada))
+        {
+            if(tope(&dada) >= cond)
+            {
+                A[v] = tope(&dada);
+                v++;
+            }
+            desapilar(&dada);
+        }
+
+    }
+
+    return v;
+
+}
+
+
+int existeElementoArreglo(int A[], int v, int datoABuscar){
+
+    int i = 0;
+    int flag = 0;
+
+    while(i<v && flag == 0){
+        if(A[i] == datoABuscar){
+            flag = 1;
+        }
+        i++;
+    }
+
+    return flag;
+
+}
+
+int buscaPosicionElemento(int A[], int v, int datoABuscar){
+
+    int i = 0;
+    int flag = 0;
+    int posicionElemento = -1;
+
+    while(i < v && flag == 0){
+        if(A[i] == datoABuscar){
+            posicionElemento = i;
+            flag = 1;
+        }
+        i++;
+    }
+
+    return posicionElemento;
+
+}
+
+
+
+
+
+
+
+
 
