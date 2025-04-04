@@ -3,6 +3,7 @@
 #include <conio.h>
 #include <math.h>
 #include <time.h>
+#include <string.h>
 #include "pila.h"
 
 
@@ -13,7 +14,7 @@ void cargaDiezElementosRandomArreglo(int arreglo[], int * v);
 
 int main()
 {
-
+    /*
     srand(time(NULL));
 
     int arreglo[10];
@@ -30,6 +31,20 @@ int main()
     cargaDiezElementosRandomArreglo(arreglito, &vArreglito);
     printf("\n\n");
     muestraArreglo(arreglito,vArreglito);
+
+    */
+
+    printf("Ingresa el nombre del alumno: \n");
+    fflush(stdin);
+
+    //scanf("%s", alumno);
+    gets(alumno);
+
+    // printf("El nombre del alumno es %s \n", alumno);
+
+    puts(alumno);
+
+
 
 
     return 0;
@@ -110,7 +125,7 @@ int copiaElementosPilaToArregloVacio(Pila dada, int A[], int dim)
 }
 
 
-
+/*
 int copiaElementosPilaToArreglo(Pila dada, int A[], int v, int dim)
 {
 
@@ -131,6 +146,8 @@ int copiaElementosPilaToArreglo(Pila dada, int A[], int v, int dim)
     return v;
 
 }
+
+
 
 
 int copiaElementosPilaToArregloCondicion(Pila dada, int A[], int v, int dim, int cond)
@@ -157,15 +174,18 @@ int copiaElementosPilaToArregloCondicion(Pila dada, int A[], int v, int dim, int
     return v;
 
 }
+*/
 
-
-int existeElementoArreglo(int A[], int v, int datoABuscar){
+int existeElementoArreglo(int A[], int v, int datoABuscar)
+{
 
     int i = 0;
     int flag = 0;
 
-    while(i<v && flag == 0){
-        if(A[i] == datoABuscar){
+    while(i<v && flag == 0)
+    {
+        if(A[i] == datoABuscar)
+        {
             flag = 1;
         }
         i++;
@@ -175,14 +195,17 @@ int existeElementoArreglo(int A[], int v, int datoABuscar){
 
 }
 
-int buscaPosicionElemento(int A[], int v, int datoABuscar){
+int buscaPosicionElemento(int A[], int v, int datoABuscar)
+{
 
     int i = 0;
     int flag = 0;
     int posicionElemento = -1;
 
-    while(i < v && flag == 0){
-        if(A[i] == datoABuscar){
+    while(i < v && flag == 0)
+    {
+        if(A[i] == datoABuscar)
+        {
             posicionElemento = i;
             flag = 1;
         }
@@ -190,10 +213,54 @@ int buscaPosicionElemento(int A[], int v, int datoABuscar){
     }
 
     return posicionElemento;
+}
+
+/// 7. Inserar un caracter en un arreglo ordenado
+int insertaCaracterEnArregloOrdenado(char A[], int v, char dato)
+{
+
+    int posActual = v - 1;
+
+    while(posActual >= 0 && A[posActual] > dato)
+    {
+        A[posActual + 1 ] = A[posActual];
+        posActual--;
+    }
+
+    A[posActual + 1] = dato;
+
+    return v + 1;
 
 }
 
 
+
+
+/// 8. Arreglo capicua
+int esCapicua(char arr[], int v)
+{
+
+    int posIni = 0;
+    int posFin = v-1;
+
+    int flag = 1; // es capicua
+
+    while(posIni <= posFin && flag == 1)
+    {
+        if(A[posIni] == A[posFin])
+        {
+            posIni++;
+            posFin--;
+        }
+        else
+        {
+            flag = 0;
+        }
+    }
+
+    return flag;
+
+}
 
 
 
