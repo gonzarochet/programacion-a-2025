@@ -12,6 +12,10 @@
 int cargaElementosArreglo(int arreglo[], int v, int dim);
 void cargaDiezElementosRandomArreglo(int arreglo[], int * v);
 
+
+void ordenacionPorSeleccion(int A[], int v);
+void ordenacionPorInsercion(int A[], int v);
+
 int main()
 {
     /*
@@ -28,21 +32,25 @@ int main()
     int arreglito[5];
     int vArreglito = 0;
 
-    cargaDiezElementosRandomArreglo(arreglito, &vArreglito);
+
     printf("\n\n");
     muestraArreglo(arreglito,vArreglito);
 
     */
 
-    printf("Ingresa el nombre del alumno: \n");
-    fflush(stdin);
+    int arreglito[10];
+    int vArreglito = 0;
+    cargaDiezElementosRandomArreglo(arreglito, &vArreglito);
 
-    //scanf("%s", alumno);
-    gets(alumno);
+    printf("\n\n");
+    muestraArreglo(arreglito,vArreglito);
 
-    // printf("El nombre del alumno es %s \n", alumno);
 
-    puts(alumno);
+    //ordenacionPorSeleccion(arreglito,vArreglito);
+    ordenacionPorInsercion(arreglito,vArreglito);
+
+    printf("\n\n");
+    muestraArreglo(arreglito,vArreglito);
 
 
 
@@ -237,30 +245,118 @@ int insertaCaracterEnArregloOrdenado(char A[], int v, char dato)
 
 
 /// 8. Arreglo capicua
-int esCapicua(char arr[], int v)
+//int esCapicua(char arr[], int v)
+//{
+//
+//    int posIni = 0;
+//    int posFin = v-1;
+//
+//    int flag = 1; // es capicua
+//
+//    while(posIni <= posFin && flag == 1)
+//    {
+//        if(A[posIni] == A[posFin])
+//        {
+//            posIni++;
+//            posFin--;
+//        }
+//        else
+//        {
+//            flag = 0;
+//        }
+//    }
+//
+//    return flag;
+//
+//}
+
+
+
+/// 9. funcion de intercambio
+void intercambio(int * a, int * b)
+{
+    int aux = *a;
+    *a = *b;
+    *b = aux;
+}
+
+
+void invertirArregloEnteros(int A[], int v)
 {
 
     int posIni = 0;
     int posFin = v-1;
 
-    int flag = 1; // es capicua
-
-    while(posIni <= posFin && flag == 1)
+    while(posIni < posFin)
     {
-        if(A[posIni] == A[posFin])
-        {
-            posIni++;
-            posFin--;
-        }
-        else
-        {
-            flag = 0;
-        }
+        intercambio(&A[posIni],&A[posFin]);
+        posIni++;
+        posFin--;
     }
 
-    return flag;
+}
+
+///11. Seleccion
+void ordenacionPorSeleccion(int A[], int v)
+{
+    int inicio = 0;
+    int fin = v-1;
+
+    int i;
+    int posMenor;
+    int aux;
+
+    while(inicio < fin)
+    {
+        i = inicio;
+        posMenor = inicio;
+
+        i = i+1;
+
+        while(i<v)
+        {
+            if(A[i]< A[posMenor])
+            {
+                posMenor = i;
+            }
+            i++;
+        }
+
+        aux = A[inicio];
+        A[inicio] = A[posMenor];
+        A[posMenor] = aux;
+
+        inicio++;
+    }
+
 
 }
+
+/// 11.b insercion
+
+void ordenacionPorInsercion(int A[], int v)
+{
+    int inicio;
+    int dato;
+
+    for(inicio = 0; inicio < v; inicio++)
+    {
+        dato = A[inicio + 1];
+
+        while(inicio >= 0 && A[inicio] > dato)
+        {
+            A[inicio + 1] = A[inicio];
+            inicio--;
+        }
+
+        A[inicio + 1] = dato;
+    }
+
+}
+
+
+
+
 
 
 
