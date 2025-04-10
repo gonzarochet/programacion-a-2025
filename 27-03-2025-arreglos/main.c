@@ -8,57 +8,37 @@
 
 
 
-
 int cargaElementosArreglo(int arreglo[], int v, int dim);
 void cargaDiezElementosRandomArreglo(int arreglo[], int * v);
-
-
+void muestraArreglo(int arreglo[], int v);
+void copiaElementosArregloToPila(int A[], int v, Pila * dada);
+void copiaElementosArregloToPilaCond(int A[], int v, Pila * dada, int cond);
+int copiaElementosPilaToArregloVacio(Pila dada, int A[], int dim);
+int copiaElementosPilaToArreglo(Pila dada, int A[], int v, int dim);
+int copiaElementosPilaToArregloCondicion(Pila dada, int A[], int v, int dim, int cond);
+int cantidadElementosPila(Pila p);
+int existeElementoArreglo(int A[], int v, int datoABuscar);
+int insertaCaracterEnArregloOrdenado(char A[], int v, char dato);
+int buscaMenorPosicion(int arreglo[], int v);
+int esCapicua(char arr[], int v);
+void intercambio(int * a, int * b);
+void invertirArregloEnteros(int A[], int v);
 void ordenacionPorSeleccion(int A[], int v);
 void ordenacionPorInsercion(int A[], int v);
+void intercalarArreglos(int a[],int vA, int b[], int vB, int c[]);
 
 int main()
 {
-    /*
+
     srand(time(NULL));
 
-    int arreglo[10];
-    int validos = 0;
-
-    // validos = cargaElementosArreglo(arreglo,validos, 10);
-    printf("\n");
-    // muestraArreglo(arreglo,validos);
-
-
-    int arreglito[5];
-    int vArreglito = 0;
-
-
-    printf("\n\n");
-    muestraArreglo(arreglito,vArreglito);
-
-    */
-
-    int arreglito[10];
-    int vArreglito = 0;
-    cargaDiezElementosRandomArreglo(arreglito, &vArreglito);
-
-    printf("\n\n");
-    muestraArreglo(arreglito,vArreglito);
-
-
-    //ordenacionPorSeleccion(arreglito,vArreglito);
-    ordenacionPorInsercion(arreglito,vArreglito);
-
-    printf("\n\n");
-    muestraArreglo(arreglito,vArreglito);
-
-
+    /// TO-DO: HACER MENU CON OPCIONES PARA QUE EL USUARIO NAVEGUE ENTRE LOS PUNTOS.
 
 
     return 0;
 }
 
-
+/// 1. Carga DE ARREGLO con intervención del usuario.
 int cargaElementosArreglo(int arreglo[], int v, int dim)
 {
 
@@ -80,7 +60,7 @@ int cargaElementosArreglo(int arreglo[], int v, int dim)
 }
 
 
-/// 1.
+/// 1. Funcion que carga 10 elementos aleatorios (enteros) al arreglo. Trabaja válidos por referencia.
 void cargaDiezElementosRandomArreglo(int arreglo[], int * v)
 {
 
@@ -96,7 +76,7 @@ void cargaDiezElementosRandomArreglo(int arreglo[], int * v)
 
 }
 
-/// 2.
+/// 2. Recorre y muestra los elementos del arreglo.
 void muestraArreglo(int arreglo[], int v)
 {
 
@@ -107,7 +87,7 @@ void muestraArreglo(int arreglo[], int v)
 
 }
 
-///4. copia elementos del arreglo a la pila.
+///4. Copia los elementos del arreglo a la pila.
 void copiaElementosArregloToPila(int A[], int v, Pila * dada)
 {
 
@@ -119,6 +99,25 @@ void copiaElementosArregloToPila(int A[], int v, Pila * dada)
 }
 
 
+/// 4.bis Arreglo Hacia Pila con condicion.
+void copiaElementosArregloToPilaCond(int A[], int v, Pila * dada, int cond)
+{
+
+    for(int i = 0; i < v; i++)
+    {
+        if(A[i] == cond) /// la condicion puede variar: ( <, > , == ,%2)
+        {
+            apilar(dada, A[i]);
+        }
+
+    }
+
+}
+
+
+
+
+/// 4.bisbis COPIA LOS ELEMENTOS DE UNA PILA A UN ARREGLO VACIO.
 int copiaElementosPilaToArregloVacio(Pila dada, int A[], int dim)
 {
     int v = 0;
@@ -133,7 +132,7 @@ int copiaElementosPilaToArregloVacio(Pila dada, int A[], int dim)
 }
 
 
-/*
+/// 4. bisbisbis COPIA LOS ELEMENTOS DE UNA PILA A UN ARREGLO (PUEDE TENER DATOS ANTES).
 int copiaElementosPilaToArreglo(Pila dada, int A[], int v, int dim)
 {
 
@@ -155,9 +154,26 @@ int copiaElementosPilaToArreglo(Pila dada, int A[], int v, int dim)
 
 }
 
+/// extra: cant elementos pila
+int cantidadElementosPila(Pila p)
+{
+
+    Pila aux;
+    inicpila(&aux);
+    int contador = 0;
+
+    while(!pilavacia(&p))
+    {
+        apilar(&aux,desapilar(&p));
+        contador ++;
+    }
+
+    return contador;
+
+}
 
 
-
+/// 4. bisbisbisbis COPIA LOS ELEMENTOS DE UNA PILA A UN ARREGLO CON CONDICIÓN.
 int copiaElementosPilaToArregloCondicion(Pila dada, int A[], int v, int dim, int cond)
 {
 
@@ -182,8 +198,10 @@ int copiaElementosPilaToArregloCondicion(Pila dada, int A[], int v, int dim, int
     return v;
 
 }
-*/
 
+
+
+/// 6.  Determinar si un elemento existe en un arreglo. Devuele 1 si existe, 0 si no.
 int existeElementoArreglo(int A[], int v, int datoABuscar)
 {
 
@@ -203,6 +221,7 @@ int existeElementoArreglo(int A[], int v, int datoABuscar)
 
 }
 
+/// 6.bis. Buscar la posición de un elemento determinado.
 int buscaPosicionElemento(int A[], int v, int datoABuscar)
 {
 
@@ -223,7 +242,7 @@ int buscaPosicionElemento(int A[], int v, int datoABuscar)
     return posicionElemento;
 }
 
-/// 7. Inserar un caracter en un arreglo ordenado
+/// 7. Insertar un caracter en un arreglo ordenado.
 int insertaCaracterEnArregloOrdenado(char A[], int v, char dato)
 {
 
@@ -241,38 +260,61 @@ int insertaCaracterEnArregloOrdenado(char A[], int v, char dato)
 
 }
 
+/// 8. Función que busca la posición del menor elemento.
+int buscaMenorPosicion(int arreglo[], int v)
+{
+
+    int posMenor = -1;
+    int i = 0;
+
+    if(i<v)
+    {
+        posMenor = i;
+    }
+
+    for(i+1 ; i<v; i++)
+    {
+        if(arreglo[i] < arreglo[posMenor])
+        {
+            posMenor = i;
+        }
+
+    }
+
+    return posMenor;
+}
+
+/// 9. Determina Arreglo Capicua.
+int esCapicua(char arr[], int v)
+{
+
+    int posini = 0;
+    int posfin = v-1;
+
+    int flag = 1; // es capicua
+
+    while(posini <= posfin && flag == 1)
+    {
+        if(arr[posini] == arr[posfin])
+        {
+            posini++;
+            posfin--;
+        }
+        else
+        {
+            flag = 0;
+        }
+    }
+
+    return flag;
+
+}
 
 
 
-/// 8. Arreglo capicua
-//int esCapicua(char arr[], int v)
-//{
-//
-//    int posIni = 0;
-//    int posFin = v-1;
-//
-//    int flag = 1; // es capicua
-//
-//    while(posIni <= posFin && flag == 1)
-//    {
-//        if(A[posIni] == A[posFin])
-//        {
-//            posIni++;
-//            posFin--;
-//        }
-//        else
-//        {
-//            flag = 0;
-//        }
-//    }
-//
-//    return flag;
-//
-//}
+/// 9. Invertir los elementos de un arreglo.
 
-
-
-/// 9. funcion de intercambio
+/// AUX - Función de Intercambio
 void intercambio(int * a, int * b)
 {
     int aux = *a;
@@ -296,7 +338,8 @@ void invertirArregloEnteros(int A[], int v)
 
 }
 
-///11. Seleccion
+///11.a Ordenamiento por Seleccion.
+
 void ordenacionPorSeleccion(int A[], int v)
 {
     int inicio = 0;
@@ -332,7 +375,7 @@ void ordenacionPorSeleccion(int A[], int v)
 
 }
 
-/// 11.b insercion
+/// 11.b Ordenamiento por Inserción.
 
 void ordenacionPorInsercion(int A[], int v)
 {
@@ -354,7 +397,59 @@ void ordenacionPorInsercion(int A[], int v)
 
 }
 
+/// 12. Intercalar dos arreglos ordenados en un tercer arreglo y que quede ordenado.
 
+void intercalarArreglos(int a[],int vA, int b[], int vB, int c[])
+{
+
+    int iA = 0;
+    int iB = 0;
+    int iC = 0;
+
+
+    while(iA < vA && iB < vB)
+    {
+
+        if(a[iA]<= b[iB])
+        {
+            c[iC] = a[iA];
+            iA++;
+
+        }
+        else
+        {
+
+            c[iC] = b[iB];
+            iB++;
+
+        }
+
+        iC++;
+    }
+
+
+    while(iA < vA)
+    {
+        c[iC] = a[iA];
+        iA++;
+        iC++;
+    }
+
+    while(iB < vB)
+    {
+        c[iC] = b[iB];
+        iB++;
+        iC++;
+    }
+
+
+    return iC;
+
+}
+
+
+
+/// 13.
 
 
 
