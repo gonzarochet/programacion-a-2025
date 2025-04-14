@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1744668866 source:c:\dev\utn\programacion-nivelatorio-2025\14-04-25-matrices\main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<time.h>
+
