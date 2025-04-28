@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1745876859 source:c:\dev\utn\programacion-nivelatorio-2025\23-04-2025-busqueda-binaria\main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<time.h>
+
