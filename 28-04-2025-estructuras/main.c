@@ -2,14 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <conio.h>
+#include "stPaciente.h"
 
-typedef struct {
+#define AR_PACIENTES "pacientes.dat"
 
-    int id;
-    char dni[10];
-    char nombreApellido[100];
-    char nroAfiliado[30];
-} stPaciente;
 
 /// PROTOTIPADOS
 int cargaArregloPacientes(stPaciente arrPaciente[], int v, int dim);
@@ -28,7 +24,7 @@ int main()
     strcpy(pepe.nroAfiliado,"AAA-001");
     strcpy(pepe.nombreApellido,"Pepe Argento");
 
-   // muestraUnPaciente(pepe);
+    // muestraUnPaciente(pepe);
 
 
 //    ///ARREGLO ESTATICO DE PACIENTES
@@ -41,126 +37,202 @@ int main()
 
 
     /// ARREGLO DINAMICO DE PACIENTES
-    stPaciente * arrDinPacientes = NULL;
+//    stPaciente * arrDinPacientes = NULL;
+//
+//    arrDinPacientes = reservarEspacioEnMemoriaDevolviendoPtr(arrDinPacientes,5);
+//
+//
+//    for(int i = 0; i<5; i++)
+//    {
+//        arrDinPacientes[i] = pepe;
+//    }
+//
+//
+//    printf("\n");
+//
+//    muestraArregloPacientes(arrDinPacientes,5);
+//
+//
+//    system("pause");
+//    system("cls");
+//
+//
+//    arrDinPacientes = redefinirDimensionArreglo(arrDinPacientes, 15);
+//
+//    system("pause");
+//
+//
+//    for(int i = 0; i<10; i++)
+//    {
+//        arrDinPacientes[i] = pepe;
+//    }
+//
+//
+//    printf("\n");
+//
+//    muestraArregloPacientes(arrDinPacientes,15);
 
-    arrDinPacientes = reservarEspacioEnMemoriaDevolviendoPtr(arrDinPacientes,5);
+/// ARCHIVOS PACIENTES
 
+    stPaciente arrPacientes[10];
+    stPaciente arrPacientes2[10];
+    int v = 0;
+    int v2 = 0;
 
-    for(int i = 0; i<5; i++){
-        arrDinPacientes[i] = pepe;
-    }
+    v = cargaArregloPacientes(arrPacientes,v,10);
 
+    arregloPacientesHaciaArchivo(arrPacientes,v,AR_PACIENTES);
 
-    printf("\n");
+    v2 = archivoHaciaArreglo(AR_PACIENTES,arrPacientes2, 10);
 
-    muestraArregloPacientes(arrDinPacientes,5);
+    muestraArregloPacientes(arrPacientes2,v2);
 
-
-    system("pause");
-    system("cls");
-
-
-    arrDinPacientes = redefinirDimensionArreglo(arrDinPacientes, 15);
-
-    system("pause");
-
-
-    for(int i = 0; i<10; i++){
-        arrDinPacientes[i] = pepe;
-    }
-
-
-    printf("\n");
-
-    muestraArregloPacientes(arrDinPacientes,15);
 
 
     return 0;
 }
 
-int cargaArregloPacientes(stPaciente arrPaciente[], int v, int dim){
-
+int cargaArregloPacientes(stPaciente arrPaciente[], int v, int dim)
+{
     int i = v;
     char option = 's';
 
-    while( i < dim && option != 27){
+    while( i < dim && option != 27)
+    {
+        arrPaciente[i] = cargaUnPaciente();
 
-    printf("Ingrese el ID del usuario: \n");
-    scanf("%d", &arrPaciente[i].id);
+        printf("Quiere continuar? ESC para salir");
+        fflush(stdin);
+        option = getch();
 
-    printf("Ingrese el DNI \n:");
-    fflush(stdin);
-    scanf("%s",arrPaciente[i].dni);
-
-    printf("Ingrese el Nombre y Apellido \n:");
-    fflush(stdin);
-    gets(arrPaciente[i].nombreApellido);
-
-    printf("Ingrese el NRO - Afiliado \n:");
-    fflush(stdin);
-    scanf("%s",arrPaciente[i].nroAfiliado);
-
-    printf("Quiere continuar? ESC para salir");
-    fflush(stdin);
-    option = getch();
-
-    i++;
-    system("cls");
+        i++;
+        system("cls");
 
     }
 
-    v = i;
-    return v;
+    return i;
 }
 
-void muestraUnPaciente(stPaciente p){
-    printf("Id.......................%d \n", p.id);
-    printf("DNI......................%s \n", p.dni);
-    printf("Nombre y Apellido........%s \n", p.nombreApellido);
-    printf("Nro Afiliado.............%s \n", p.nroAfiliado);
-    printf("\n-----------------------------\n");
-}
 
-void muestraArregloPacientes(stPaciente arr[], int v){
 
-    for(int i = 0; i < v; i++){
+void muestraArregloPacientes(stPaciente arr[], int v)
+{
+
+    for(int i = 0; i < v; i++)
+    {
         muestraUnPaciente(arr[i]);
     }
 }
 
 
+/// FUNCIONES CON ARCHIVOS
+
+void arregloPacientesHaciaArchivo(stPaciente arr[], int v, char nombreArchivo[]){
+
+    FILE * buffer = NULL;
+    buffer = fopen(nombreArchivo,"wb");
+
+    stPaciente aux;
+
+    if(buffer != NULL)
+    {
+        for(int i = 0; i < v; i++){
+            aux = arr[i];
+            fwrite(&aux,sizeof(stPaciente),1,buffer);
+        }
+
+        fclose(buffer);
+    }
+    else {
+        printf("No se abrio correctamente");
+
+    }
+
+}
+
+int archivoHaciaArreglo(char nombreArchivo[], stPaciente arr[], int dim){
+
+    FILE * buffer = fopen(nombreArchivo, "rb");
+    stPaciente aux;
+    int i = 0;
+
+    if(buffer != NULL){
+
+        while(fread(&aux,sizeof(stPaciente),1, buffer) > 0){
+            arr[i] = aux;
+            i++;
+        }
+
+        fclose(buffer);
+    }
+
+    return i;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /// Funciones con Arreglo Dinámicos
-stPaciente * reservarEspacioEnMemoriaDevolviendoPtr(stPaciente *ptr, int dim){
-	// La funcion declara que devuelve un puntero.
-	ptr = (stPaciente*) malloc(sizeof(stPaciente) * dim);
-	if (ptr == NULL){
-		puts("\nError de memoria");
-		exit(1);
-	} else
-		printf("\nHe reservado en %p", ptr);
+stPaciente * reservarEspacioEnMemoriaDevolviendoPtr(stPaciente *ptr, int dim)
+{
+    // La funcion declara que devuelve un puntero.
+    ptr = (stPaciente*) malloc(sizeof(stPaciente) * dim);
+    if (ptr == NULL)
+    {
+        puts("\nError de memoria");
+        exit(1);
+    }
+    else
+        printf("\nHe reservado en %p", ptr);
 
-	return ptr;
+    return ptr;
 }
 
 
-void reservar(stPaciente **ptr, int num){
-	// La funcion declara un doble puntero
+void reservar(stPaciente **ptr, int num)
+{
+    // La funcion declara un doble puntero
 
-	// Acceso al contenido del puntero para reservar el bloque de memoria.
-	*ptr = (stPaciente *) malloc(sizeof(stPaciente) * num);
-	if (*ptr == NULL){
-		puts("\nError de memoria");
-		exit(1);
-	} else
-		printf("\nHe reservado en %p", *ptr);
+    // Acceso al contenido del puntero para reservar el bloque de memoria.
+    *ptr = (stPaciente *) malloc(sizeof(stPaciente) * num);
+    if (*ptr == NULL)
+    {
+        puts("\nError de memoria");
+        exit(1);
+    }
+    else
+        printf("\nHe reservado en %p", *ptr);
 }
 
 
-stPaciente * redefinirDimensionArreglo(stPaciente * ptr, int nuevaDim){
+stPaciente * redefinirDimensionArreglo(stPaciente * ptr, int nuevaDim)
+{
 
     stPaciente * nuevoPtr = (stPaciente *) realloc(ptr, (sizeof(stPaciente)*nuevaDim));
 
-    if(nuevoPtr && nuevoPtr != ptr){
+    if(nuevoPtr && nuevoPtr != ptr)
+    {
         free(ptr);
     }
     return nuevoPtr;

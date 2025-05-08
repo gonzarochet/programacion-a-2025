@@ -1,7 +1,15 @@
 # depslib dependency file v1.0
-1746483999 source:c:\dev\utn\programacion-nivelatorio-2025\28-04-2025-estructuras\main.c
+1746662821 source:c:\dev\utn\programacion-nivelatorio-2025\28-04-2025-estructuras\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<conio.h>
+	"stPaciente.h"
+
+1746662839 source:c:\dev\utn\programacion-nivelatorio-2025\28-04-2025-estructuras\stpaciente.c
+	"stPaciente.h"
+
+1746663305 c:\dev\utn\programacion-nivelatorio-2025\28-04-2025-estructuras\stpaciente.h
+	<stdio.h>
+	<stdlib.h>
 
