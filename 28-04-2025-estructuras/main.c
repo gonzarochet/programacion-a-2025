@@ -5,6 +5,7 @@
 #include "stPaciente.h"
 
 #define AR_PACIENTES "pacientes.dat"
+#define AR_PACIENTES_MAYORES "pacientesMayores.dat"
 
 
 /// PROTOTIPADOS
@@ -14,6 +15,11 @@ void muestraArregloPacientes(stPaciente arr[], int v);
 
 stPaciente * reservarEspacioEnMemoriaDevolviendoPtr(stPaciente *ptr, int dim);
 stPaciente * redefinirDimensionArreglo(stPaciente * ptr, int nuevaDim);
+
+
+int arregloPacientesHaciaArchivoPro(stPaciente arr[], int v, char nombreArchivo[]);
+void muestraDesdeArchivoPacientes(char nombreArchivo[]);
+int cantElementosArchivos(char nombreArchivo[], int tamanioEstructura);
 
 int main()
 {
@@ -81,12 +87,23 @@ int main()
 
     v = cargaArregloPacientes(arrPacientes,v,10);
 
-    arregloPacientesHaciaArchivo(arrPacientes,v,AR_PACIENTES);
+    int cant = arregloPacientesHaciaArchivoPro(arrPacientes,v,AR_PACIENTES_MAYORES);
 
-    v2 = archivoHaciaArreglo(AR_PACIENTES,arrPacientes2, 10);
+    if(cant == v){
+        printf("Escribi en el archivo %d datos \n ", cant);
+    }
 
-    muestraArregloPacientes(arrPacientes2,v2);
+    muestraDesdeArchivoPacientes(AR_PACIENTES_MAYORES);
 
+
+    int cantArchivo = cantElementosArchivos(AR_PACIENTES_MAYORES,sizeof(stPaciente));
+
+    printf("La cantidad de elementos en el archivo es %d", cantArchivo);
+
+
+  //  v2 = archivoHaciaArreglo(AR_PACIENTES,arrPacientes2, 10);
+
+  //  muestraArregloPacientes(arrPacientes2,v2);
 
 
     return 0;
@@ -149,6 +166,64 @@ void arregloPacientesHaciaArchivo(stPaciente arr[], int v, char nombreArchivo[])
     }
 
 }
+
+
+
+int arregloPacientesHaciaArchivoPro(stPaciente arr[], int v, char nombreArchivo[]){
+
+    FILE * archi = fopen(nombreArchivo, "ab");
+
+    int cantDatos = 0;
+
+    if(archi){
+       cantDatos = fwrite(arr, sizeof(stPaciente),v,archi);
+        fclose(archi);
+    }
+
+    return cantDatos;
+
+}
+
+
+void muestraDesdeArchivoPacientes(char nombreArchivo[]){
+
+    FILE * archi = fopen(nombreArchivo, "rb");
+    stPaciente aux;
+
+    if(archi){
+
+        while(fread(&aux,sizeof(stPaciente),1,archi)> 0){
+            muestraUnPaciente(aux);
+        }
+        fclose(archi);
+    }
+
+}
+
+int cantElementosArchivos(char nombreArchivo[], int tamanioEstructura){
+
+    FILE * archi = fopen(nombreArchivo, "rb");
+    int cant = -1;
+
+    if(archi) /// archi != NULL
+        {
+        cant = 0;
+
+        /// muevo el indicador de posición al final
+        fseek(archi,0,SEEK_END);
+
+
+        /// la totalidad de bytes lo divido por el tamaño de un registro.
+        cant = ftell(archi) / tamanioEstructura;
+
+        fclose(archi);
+    }
+
+    return cant;
+
+}
+
+
 
 int archivoHaciaArreglo(char nombreArchivo[], stPaciente arr[], int dim){
 
