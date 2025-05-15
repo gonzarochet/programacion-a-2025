@@ -85,25 +85,32 @@ int main()
     int v = 0;
     int v2 = 0;
 
-    v = cargaArregloPacientes(arrPacientes,v,10);
+   //v = cargaArregloPacientes(arrPacientes,v,10);
 
-    int cant = arregloPacientesHaciaArchivoPro(arrPacientes,v,AR_PACIENTES_MAYORES);
+   //int cant = arregloPacientesHaciaArchivoPro(arrPacientes,v,AR_PACIENTES_MAYORES);
 
-    if(cant == v){
+    /*
+    if(cant == v)
+    {
         printf("Escribi en el archivo %d datos \n ", cant);
-    }
+    }*/
 
     muestraDesdeArchivoPacientes(AR_PACIENTES_MAYORES);
 
 
-    int cantArchivo = cantElementosArchivos(AR_PACIENTES_MAYORES,sizeof(stPaciente));
+   // int cantArchivo = cantElementosArchivos(AR_PACIENTES_MAYORES,sizeof(stPaciente));
 
-    printf("La cantidad de elementos en el archivo es %d", cantArchivo);
+    //printf("La cantidad de elementos en el archivo es %d", cantArchivo);
 
 
-  //  v2 = archivoHaciaArreglo(AR_PACIENTES,arrPacientes2, 10);
+    system("pause");
+    system("cls");
 
-  //  muestraArregloPacientes(arrPacientes2,v2);
+    v2 = archivoHaciaArreglo(AR_PACIENTES_MAYORES ,arrPacientes2, 10);
+
+    ordenacionPorSeleccionDniPacientes(arrPacientes2,v2);
+
+    muestraArregloPacientes(arrPacientes2,v2);
 
 
     return 0;
@@ -142,9 +149,73 @@ void muestraArregloPacientes(stPaciente arr[], int v)
 }
 
 
+/// 4. bis Buscar un paciente por dni
+int buscaPosicionPacientePorDni (stPaciente arr[], int v, char dniABuscar[10])
+{
+    int pos = -1;
+    int i = 0;
+
+    while(i < v && pos == -1)
+    {
+        if(strcmpi(arr[i].dni, dniABuscar) == 0)
+        {
+            pos = i;
+        }
+
+        i++;
+    }
+    return pos;
+}
+
+
+// 4. Ordenacion por Seleccion
+
+void ordenacionPorSeleccionDniPacientes(stPaciente arr[], int v)
+{
+    int inicio = 0;
+    int posMenor;
+    stPaciente aux;
+
+    for(inicio; inicio < v; inicio ++)
+    {
+        posMenor = inicio;
+
+        for(int i = inicio +1; i < v; i++)
+        {
+            if(atoi(arr[i].dni) < atoi(arr[posMenor].dni))
+            {
+                posMenor = i;
+            }
+        }
+
+        intercambio2Pacientes(&arr[inicio], &arr[posMenor]);
+        /*
+        aux = arr[inicio];
+        arr[inicio] = arr[posMenor];
+        arr[posMenor] = aux;*/
+    }
+
+}
+
+
+void intercambio2Pacientes(stPaciente * a, stPaciente * b){
+
+    stPaciente aux = *a;
+    *a = *b;
+    *b = aux;
+
+
+}
+
+
+
+
+
+
 /// FUNCIONES CON ARCHIVOS
 
-void arregloPacientesHaciaArchivo(stPaciente arr[], int v, char nombreArchivo[]){
+void arregloPacientesHaciaArchivo(stPaciente arr[], int v, char nombreArchivo[])
+{
 
     FILE * buffer = NULL;
     buffer = fopen(nombreArchivo,"wb");
@@ -153,14 +224,16 @@ void arregloPacientesHaciaArchivo(stPaciente arr[], int v, char nombreArchivo[])
 
     if(buffer != NULL)
     {
-        for(int i = 0; i < v; i++){
+        for(int i = 0; i < v; i++)
+        {
             aux = arr[i];
             fwrite(&aux,sizeof(stPaciente),1,buffer);
         }
 
         fclose(buffer);
     }
-    else {
+    else
+    {
         printf("No se abrio correctamente");
 
     }
@@ -168,15 +241,17 @@ void arregloPacientesHaciaArchivo(stPaciente arr[], int v, char nombreArchivo[])
 }
 
 
-
-int arregloPacientesHaciaArchivoPro(stPaciente arr[], int v, char nombreArchivo[]){
+/// esta función pasa de arreglo al archivo sin recorrer el arreglo.
+int arregloPacientesHaciaArchivoPro(stPaciente arr[], int v, char nombreArchivo[])
+{
 
     FILE * archi = fopen(nombreArchivo, "ab");
 
     int cantDatos = 0;
 
-    if(archi){
-       cantDatos = fwrite(arr, sizeof(stPaciente),v,archi);
+    if(archi)
+    {
+        cantDatos = fwrite(arr, sizeof(stPaciente),v,archi);
         fclose(archi);
     }
 
@@ -185,14 +260,17 @@ int arregloPacientesHaciaArchivoPro(stPaciente arr[], int v, char nombreArchivo[
 }
 
 
-void muestraDesdeArchivoPacientes(char nombreArchivo[]){
+void muestraDesdeArchivoPacientes(char nombreArchivo[])
+{
 
     FILE * archi = fopen(nombreArchivo, "rb");
     stPaciente aux;
 
-    if(archi){
+    if(archi)
+    {
 
-        while(fread(&aux,sizeof(stPaciente),1,archi)> 0){
+        while(fread(&aux,sizeof(stPaciente),1,archi)> 0)
+        {
             muestraUnPaciente(aux);
         }
         fclose(archi);
@@ -200,13 +278,14 @@ void muestraDesdeArchivoPacientes(char nombreArchivo[]){
 
 }
 
-int cantElementosArchivos(char nombreArchivo[], int tamanioEstructura){
+int cantElementosArchivos(char nombreArchivo[], int tamanioEstructura)
+{
 
     FILE * archi = fopen(nombreArchivo, "rb");
     int cant = -1;
 
     if(archi) /// archi != NULL
-        {
+    {
         cant = 0;
 
         /// muevo el indicador de posición al final
@@ -225,15 +304,18 @@ int cantElementosArchivos(char nombreArchivo[], int tamanioEstructura){
 
 
 
-int archivoHaciaArreglo(char nombreArchivo[], stPaciente arr[], int dim){
+int archivoHaciaArreglo(char nombreArchivo[], stPaciente arr[], int dim)
+{
 
     FILE * buffer = fopen(nombreArchivo, "rb");
     stPaciente aux;
     int i = 0;
 
-    if(buffer != NULL){
+    if(buffer != NULL)
+    {
 
-        while(fread(&aux,sizeof(stPaciente),1, buffer) > 0){
+        while(fread(&aux,sizeof(stPaciente),1, buffer) > 0)
+        {
             arr[i] = aux;
             i++;
         }
