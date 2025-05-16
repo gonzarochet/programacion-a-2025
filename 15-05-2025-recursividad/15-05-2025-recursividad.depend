@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1747348587 source:c:\dev\utn\programacion-nivelatorio-2025\15-05-2025-recursividad\main.c
+	<stdio.h>
+	<stdlib.h>
+
