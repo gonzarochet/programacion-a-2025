@@ -31,9 +31,17 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="arreglosDinamicos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="arreglosDinamicos.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="stEspecialidad.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="stEspecialidad.h" />
 		<Unit filename="stPaciente.c">
 			<Option compilerVar="CC" />
 		</Unit>

@@ -1,15 +1,35 @@
 # depslib dependency file v1.0
-1747088935 source:c:\dev\utn\programacion-nivelatorio-2025\28-04-2025-estructuras\main.c
+1749160719 source:c:\dev\utn\programacion-nivelatorio-2025\28-04-2025-estructuras\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<conio.h>
+	<time.h>
+	"stPaciente.h"
+	"stEspecialidad.h"
+	"arreglosDinamicos.h"
+
+1749160544 source:c:\dev\utn\programacion-nivelatorio-2025\28-04-2025-estructuras\stpaciente.c
 	"stPaciente.h"
 
-1746662839 source:c:\dev\utn\programacion-nivelatorio-2025\28-04-2025-estructuras\stpaciente.c
+1749159879 c:\dev\utn\programacion-nivelatorio-2025\28-04-2025-estructuras\stpaciente.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+
+1747870151 source:c:\dev\utn\programacion-nivelatorio-2025\28-04-2025-estructuras\arreglosdinamicos.c
+	"arreglosDinamicos.h"
+
+1749159523 c:\dev\utn\programacion-nivelatorio-2025\28-04-2025-estructuras\arreglosdinamicos.h
+	<stdio.h>
+	<stdlib.h>
 	"stPaciente.h"
 
-1746663305 c:\dev\utn\programacion-nivelatorio-2025\28-04-2025-estructuras\stpaciente.h
+1747870983 source:c:\dev\utn\programacion-nivelatorio-2025\28-04-2025-estructuras\stespecialidad.c
+	"stEspecialidad.h"
+
+1747871098 c:\dev\utn\programacion-nivelatorio-2025\28-04-2025-estructuras\stespecialidad.h
 	<stdio.h>
 	<stdlib.h>
 
