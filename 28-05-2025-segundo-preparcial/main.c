@@ -414,7 +414,6 @@ int cantidadAnimalesArregloConCondicion(stAnimal a[], int v, float promedio)
 
 int cantidadAnimalesArregloConCondicionRecursiva(stAnimal a[], int v, int i, float promedio)
 {
-
     int cant;
 
     if(i == v)
@@ -435,7 +434,6 @@ int cantidadAnimalesArregloConCondicionRecursiva(stAnimal a[], int v, int i, flo
 
     }
     return cant;
-
 }
 
 
